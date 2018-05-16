@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import './App.css'
-import * as DynamicModal from './modal'
+import * as DynamicDialog from './dialog'
 import Login from './login'
 
 class App extends Component {
@@ -9,7 +9,7 @@ class App extends Component {
       <div className="App">
         <div
           onClick={() => {
-            DynamicModal.open(<Login />, {className: 'test', overlayClassName: 'overlayClassName'})
+            DynamicDialog.open(<Login />, {className: 'test', overlayClassName: 'overlayClassName'})
           }}
         >
           Open

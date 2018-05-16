@@ -1,5 +1,5 @@
 {
-  "name": "dynamic-modal",
+  "name": "react-dynamic-dialog",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,5 +13,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "main": "src/modal"
+  "main": "src/dialog"
 }
