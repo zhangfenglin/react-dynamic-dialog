@@ -7,12 +7,22 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build": "rm -rf lib && babel src/dialog --out-dir lib/ && npm run build:css",
+    "build:css": "postcss src/dialog/modal.css -o lib/modal.css"
   },
   "devDependencies": {
+    "autoprefixer": "^8.5.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "postcss": "^6.0.22",
+    "postcss-cli": "^5.0.0",
+    "postcss-loader": "^2.1.5",
     "react-scripts": "1.1.4"
   },
-  "main": "src/dialog"
+  "main": "lib"
 }

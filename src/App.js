@@ -9,9 +9,7 @@ class App extends Component {
       <div className="App">
         <div
           onClick={() => {
-            DynamicDialog.open(<Login />, {
-              shouldCloseOnOverlayClick: true
-            })
+            DynamicDialog.open(Login, {}, {})
           }}
         >
           Open

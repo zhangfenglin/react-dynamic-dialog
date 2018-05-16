@@ -1,5 +1,2 @@
 public
-src/*.js
-src/*.css
-src/*.jsx
-src/*.svg
+src

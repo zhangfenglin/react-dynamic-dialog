@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom'
 import Container from './container'
 import compose from './compose'
 
-export const open = (Component, opts = {}) => {
+export const open = (Component, props, opts = {}) => {
   const div = document.createElement('div')
 
-  const {getContainer, shouldCloseOnOverlayClick = false, onRequestClose = (_args, next) => next(), ...props} = opts
+  const {getContainer, shouldCloseOnOverlayClick = false, onRequestClose = (_args, next) => next(), ...other} = opts
   if (getContainer) {
     const root = getContainer()
     root.appendChild(div)
@@ -24,9 +24,9 @@ export const open = (Component, opts = {}) => {
     <Container
       shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
       onRequestClose={compose([onClose, onRequestClose])}
-      {...props}
+      {...other}
     >
-      {Component}
+      <Component {...props} onRequestClose={compose([onClose, onRequestClose])} />
     </Container>,
     div
   )
