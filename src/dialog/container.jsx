@@ -29,7 +29,11 @@ class Container extends React.Component {
   }
 
   _onClick() {
-    console.log('_onClick')
+    const {shouldCloseOnOverlayClick, onRequestClose} = this.props
+
+    if (shouldCloseOnOverlayClick) {
+      onRequestClose()
+    }
   }
 
   _onBoxClick(event) {

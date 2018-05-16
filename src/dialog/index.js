@@ -1,39 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Cache from './cache'
 import Container from './container'
-
-const caches = []
-
-const foundEmptyNode = () => {
-  for (let idx = 0; idx < caches.length; idx++) {
-    const cache = caches[idx]
-    if (cache.isUsing === false) {
-      return cache
-    }
-  }
-
-  return null
-}
+import compose from './compose'
 
 export const open = (Component, opts = {}) => {
-  let div = null
+  const div = document.createElement('div')
 
-  const cache = foundEmptyNode()
-  if (cache) {
-    div = cache.trigger
-  } else {
-    div = document.createElement('div')
-    caches.push(
-      new Cache({
-        trigger: div,
-        key: '',
-        isUsing: true
-      })
-    )
-  }
-
-  const {getContainer, ...props} = opts
+  const {getContainer, shouldCloseOnOverlayClick = false, onRequestClose = (_args, next) => next(), ...props} = opts
   if (getContainer) {
     const root = getContainer()
     root.appendChild(div)
@@ -41,5 +14,20 @@ export const open = (Component, opts = {}) => {
     document.body.appendChild(div)
   }
 
-  ReactDOM.render(<Container {...props}>{Component}</Container>, div)
+  const onClose = (args, next) => {
+    next()
+    ReactDOM.unmountComponentAtNode(div)
+    div.parentNode.removeChild(div)
+  }
+
+  ReactDOM.render(
+    <Container
+      shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
+      onRequestClose={compose([onClose, onRequestClose])}
+      {...props}
+    >
+      {Component}
+    </Container>,
+    div
+  )
 }
